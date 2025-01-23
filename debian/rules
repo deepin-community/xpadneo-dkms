@@ -1,4 +1,29 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@
+	dh $@ --with dkms
+
+# 设置模块名称
+DKMS_NAME := hid-xpadneo
+
+# 从 changelog 中提取模块版本
+VERSION := $(shell dpkg-parsechangelog --show-field Version | cut -d'-' -f1)
+
+override_dh_auto_build:
+	# DKMS 将处理构建过程，无需在此手动构建
+	echo "DKMS 将在安装过程中构建模块。"
+
+override_dh_auto_install:
+	# 调用自定义的 install 规则，并传递 PREFIX 和其他变量
+	dh_auto_install -- \
+		ETC_PREFIX=etc/ \
+		DOC_PREFIX=usr/share/doc/xpadneo/ \
+		PREFIX=debian/xpadneo-dkms/
+	mkdir debian/xpadneo-dkms/usr/lib/
+	mv debian/xpadneo-dkms/etc/udev debian/xpadneo-dkms/usr/lib/
+	rm -rf debian/xpadneo-dkms/etc/udev
+
+# 处理 DKMS 的相关配置
+# dh_dkms -- debian/tmp/usr/src/$(DKMS_NAME)-$(VERSION)/dkms.conf
+override_dh_dkms:
+	dh_dkms -- hid-xpadneo/dkms.conf

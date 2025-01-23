@@ -1,5 +1,5 @@
-template-repository (1.0-1) unstable; urgency=medium
+xpadneo-dkms (0.9.7-0deepin1) unstable; urgency=medium
 
-  * Initial release
+  * New upstream release. 
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- xiangzelong <xiangzelong@deepin.org>  Thu, 23 Jan 2025 11:02:00 +0800

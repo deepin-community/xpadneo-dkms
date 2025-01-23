@@ -1,0 +1,4 @@
+hid-xpadneo/* usr/src/hid-xpadneo-v0.9.7/
+hid-xpadneo/etc-udev-rules.d/60-xpadneo.rules usr/lib/udev/rules.d/
+hid-xpadneo/etc-modprobe.d/xpadneo.conf etc/modprobe.d/
+hid-xpadneo/dkms.conf usr/src/hid-xpadneo-v0.9.7
