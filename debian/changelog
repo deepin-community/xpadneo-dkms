@@ -1,5 +1,5 @@
-xpadneo-dkms (0.9.7-0deepin1) unstable; urgency=medium
+xpadneo-dkms (0.9.7+git20241224.8d20a23-0deepin1) unstable; urgency=medium
 
-  * New upstream release. 
+  * New upstream release.
 
  -- xiangzelong <xiangzelong@deepin.org>  Thu, 23 Jan 2025 11:02:00 +0800

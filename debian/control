@@ -1,6 +1,6 @@
 Source: xpadneo-dkms
 Section: kernel
-Priority: extra
+Priority: optional
 Maintainer: xiangzelong <xiangzelong@deepin.org>
 Build-Depends: debhelper-compat (= 13),
                dkms,
@@ -9,6 +9,6 @@ Standards-Version: 4.6.2
 Homepage: https://github.com/atar-axis/xpadneo
 
 Package: xpadneo-dkms
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, dkms
 Description: Advanced Linux Driver for Xbox One Wireless Controller (shipped with Xbox One S)
