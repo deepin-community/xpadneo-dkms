@@ -10,7 +10,7 @@ Vcs-Git: https://salsa.debian.org/micl/xpadneo-dkms.git
 
 Package: xpadneo-dkms
 Architecture: all
-Depends: ${misc:Depends}, dkms (>= 2.1.0.0), linux-headers-generic
+Depends: ${misc:Depends}, dkms (>= 2.1.0.0)
 Recommends: bluez (>= 5.48)
 Suggests: xserver-xorg-input-joystick
 Provides: xpadneo-modules
