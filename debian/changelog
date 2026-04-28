@@ -1,3 +1,9 @@
+xpadneo-dkms (0.10.1-1deepin1) unstable; urgency=medium
+
+  * Drop Depends: on linux-headers-generic as we don't have that.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Tue, 28 Apr 2026 15:20:45 +0800
+
 xpadneo-dkms (0.10.1-1) unstable; urgency=medium
 
   * New upstream release
