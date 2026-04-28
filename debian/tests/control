@@ -1,0 +1,3 @@
+Depends: @, dkms
+Test-Command: debian/tests/dkms-status
+Restrictions: needs-root

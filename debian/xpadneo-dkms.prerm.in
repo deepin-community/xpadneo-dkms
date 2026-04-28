@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+PACKAGE_NAME=hid-xpadneo
+PACKAGE_VERSION=@VERSION@
+
+case "$1" in
+	remove|upgrade|deconfigure)
+		if [  "$(dkms status -m ${PACKAGE_NAME} -v ${PACKAGE_VERSION})" ]; then
+			dkms remove -m ${PACKAGE_NAME} -v ${PACKAGE_VERSION} --all || true
+		fi
+		;;
+
+	failed-upgrade)
+		;;
+
+	*)
+		echo "prerm called with unknown argument \`$1'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

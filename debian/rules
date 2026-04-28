@@ -1,24 +1,41 @@
 #!/usr/bin/make -f
 
+VERSION := $(shell dpkg-parsechangelog -S version | cut -d- -f1)
+
 %:
 	dh $@ --with dkms
 
-# 设置模块名称
-DKMS_NAME := hid-xpadneo
+override_dh_auto_configure:
 
 override_dh_auto_build:
-	# DKMS 将处理构建过程，无需在此手动构建
-	echo "DKMS 将在安装过程中构建模块。"
+
+override_dh_auto_test:
 
 override_dh_auto_install:
-	# 调用自定义的 install 规则，并传递 PREFIX 和其他变量
-	dh_auto_install -- \
-		ETC_PREFIX=etc/ \
-		DOC_PREFIX=usr/share/doc/xpadneo/ \
-		PREFIX=debian/xpadneo-dkms/
-	mkdir debian/xpadneo-dkms/usr/lib/
-	mv debian/xpadneo-dkms/etc/udev debian/xpadneo-dkms/usr/lib/
-	rm -rf debian/xpadneo-dkms/etc/udev
+	install -d debian/xpadneo-dkms/usr/src/hid-xpadneo-$(VERSION)
+	cp -r hid-xpadneo/src debian/xpadneo-dkms/usr/src/hid-xpadneo-$(VERSION)/
+	cp hid-xpadneo/Makefile debian/xpadneo-dkms/usr/src/hid-xpadneo-$(VERSION)/
+	sed -e 's/@DO_NOT_CHANGE@/$(VERSION)/g' \
+		-e '/^POST_INSTALL=/d' \
+		-e '/^POST_REMOVE=/d' \
+		hid-xpadneo/dkms.conf.in \
+		> debian/xpadneo-dkms/usr/src/hid-xpadneo-$(VERSION)/dkms.conf
+	install -d debian/xpadneo-dkms/usr/lib/modprobe.d
+	install -m 644 hid-xpadneo/etc-modprobe.d/xpadneo.conf \
+		debian/xpadneo-dkms/usr/lib/modprobe.d/
+	install -d debian/xpadneo-dkms/usr/lib/udev/rules.d
+	install -m 644 hid-xpadneo/etc-udev-rules.d/*.rules \
+		debian/xpadneo-dkms/usr/lib/udev/rules.d/
+	install -d debian/xpadneo-dkms/usr/share/metainfo
+	install -m 644 xpadneo.metainfo.xml \
+		debian/xpadneo-dkms/usr/share/metainfo/io.github.atar_axis.xpadneo.metainfo.xml
 
-override_dh_dkms:
-	dh_dkms -- hid-xpadneo/dkms.conf
+override_dh_installdeb:
+	sed 's/@VERSION@/$(VERSION)/g' debian/xpadneo-dkms.preinst.in > debian/xpadneo-dkms.preinst
+	sed 's/@VERSION@/$(VERSION)/g' debian/xpadneo-dkms.postinst.in > debian/xpadneo-dkms.postinst
+	sed 's/@VERSION@/$(VERSION)/g' debian/xpadneo-dkms.prerm.in > debian/xpadneo-dkms.prerm
+	sed 's/@VERSION@/$(VERSION)/g' debian/xpadneo-dkms.postrm.in > debian/xpadneo-dkms.postrm
+	dh_installdeb
+
+override_dh_auto_clean:
+	rm -f debian/xpadneo-dkms.preinst debian/xpadneo-dkms.postinst debian/xpadneo-dkms.prerm debian/xpadneo-dkms.postrm

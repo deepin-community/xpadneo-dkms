@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+STATUS_OUTPUT=$(dkms status hid-xpadneo 2>&1)
+
+echo "dkms status hid-xpadneo output:"
+echo "$STATUS_OUTPUT"
+
+if echo "$STATUS_OUTPUT" | grep -q "installed"; then
+    exit 0
+else
+    exit 1
+fi

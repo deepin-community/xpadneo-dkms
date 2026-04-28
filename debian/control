@@ -1,14 +1,22 @@
 Source: xpadneo-dkms
 Section: kernel
 Priority: optional
-Maintainer: xiangzelong <xiangzelong@deepin.org>
-Build-Depends: debhelper-compat (= 13),
-               dkms,
-               dh-dkms,
-Standards-Version: 4.6.2
+Maintainer: Michael Lloyd <michael@micl.dev>
+Build-Depends: debhelper-compat (= 13), dh-dkms
+Standards-Version: 4.7.3
 Homepage: https://github.com/atar-axis/xpadneo
+Vcs-Browser: https://salsa.debian.org/micl/xpadneo-dkms
+Vcs-Git: https://salsa.debian.org/micl/xpadneo-dkms.git
 
 Package: xpadneo-dkms
 Architecture: all
-Depends: ${misc:Depends}, dkms
-Description: Advanced Linux Driver for Xbox One Wireless Controller (shipped with Xbox One S)
+Depends: ${misc:Depends}, dkms (>= 2.1.0.0), linux-headers-generic
+Recommends: bluez (>= 5.48)
+Suggests: xserver-xorg-input-joystick
+Provides: xpadneo-modules
+Description: Advanced Linux driver for Xbox wireless controllers
+ This driver supports Xbox wireless controllers via bluetooth, including
+ Xbox One, Xbox Series X|S, and Xbox Elite controllers. It provides force
+ feedback, rumble, and other advanced features.
+ .
+ This package uses DKMS to automatically build the hid-xpadneo kernel module.

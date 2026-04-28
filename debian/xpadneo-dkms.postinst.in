@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+PACKAGE_NAME=hid-xpadneo
+PACKAGE_VERSION=@VERSION@
+
+case "$1" in
+	configure)
+		if [ -f /usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}/dkms.conf ]; then
+			/usr/lib/dkms/common.postinst ${PACKAGE_NAME} ${PACKAGE_VERSION} /usr/share/${PACKAGE_NAME}-dkms "" $2
+		fi
+		;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+		;;
+
+	*)
+		echo "postinst called with unknown argument \`$1'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

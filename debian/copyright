@@ -1,21 +1,34 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://github.com/atar-axis/xpadneo
 Upstream-Name: xpadneo
+Upstream-Contact: Florian Dollinger <dollinger.florian@gmx.de>
+Source: https://github.com/atar-axis/xpadneo
 
 Files: *
-Copyright: 2017, Florian Dollinger <dollinger.florian@gmx.de>
-           2020-2021, Kai Krakow <kai@kaishome.de>
-License: GPL-3+
+Copyright: 2017 Florian Dollinger <dollinger.florian@gmx.de>
+           2020 Kai Krakow <kai@kaishome.de>
+License: GPL-3.0+
+
+Files: hid-xpadneo/src/*
+Copyright: 2017 Florian Dollinger <dollinger.florian@gmx.de>
+           2020 Kai Krakow <kai@kaishome.de>
+License: GPL-2.0-only
+
+Files: xpadneo.metainfo.xml
+Copyright: 2026 Michael Lloyd <michael@micl.dev>
+License: CC0-1.0
 
 Files: debian/*
-Copyright: 2025, xiangzelong <xiangzelong@deepin.org>
-License: GPL-3+
+Copyright: 2026 Michael Lloyd <michael@micl.dev>
+License: GPL-3.0+
 
-License: GPL-3+
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
+License: CC0-1.0
+ On Debian systems, the complete text of the Creative Commons Zero v1.0
+ Universal license can be found in "/usr/share/common-licenses/CC0-1.0".
+
+License: GPL-2.0-only
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License version 2 as
+ published by the Free Software Foundation.
  .
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,7 +36,24 @@ License: GPL-3+
  GNU General Public License for more details.
  .
  You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
  .
- On Debian systems, the complete text of the GNU General Public
- License version 3 can be found in `/usr/share/common-licenses/GPL-3'.
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
