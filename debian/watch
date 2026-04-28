@@ -1,0 +1,7 @@
+Version: 5
+
+Template: Github
+Project: xpadneo
+Owner: atar-axis
+Dversion-Mangle: auto
+Uversionmangle: s/-pre/~pre/

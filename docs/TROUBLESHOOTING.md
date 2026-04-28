@@ -1,3 +1,5 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 ## Troubleshooting
 
 ### Gamepad Does Not Connect Properly
@@ -128,22 +130,55 @@ not pairing with Bluez. There are some specific workarounds:
 - Plug your controller to a Windows 10 computer via a USB cord. Download
   the [Xbox Accessories application](https://xbox.com/accessories-app). When launching the app, it should ask you to
   update the firmware of the controller. When it's done, your controller should work just fine with any Linux system.
-  - If you paired your controller to your linux computer before updating the firmware, and the controller is still not connecting properly after the firmware update, try removing the bluetooth device and re-pairing through the usual process. 
+  - If you paired your controller to your linux computer before updating the firmware, and the controller is still not
+    connecting properly after the firmware update, try removing the bluetooth device and re-pairing through the usual
+    process.
 - If it didn't work, you can try these two workarounds:
-    - Use a Windows 10 computer *on the same Bluetooth adapter* to pair with the controller. It must absolutely be on
-      the same Bluetooth adapter, i.e. the same computer (can be inside a virtual machine with Bluetooth passthrough)
-      if it's an internal Bluetooth adapter, or the same Bluetooth dongle. Then, you can get the pairing keys and
-      install them within your Linux Bluetooth system.
-      - After pairing the controller on Windows, refer to [the steps on the ArchLinux wiki](https://wiki.archlinux.org/title/Bluetooth#Extracting_on_Windows) for extracting the pairing keys from Windows.
-      - Reboot the computer and try connecting.
-      - If this fails, try removing the Xbox controller and re-pairing through the usual process.
-    - Update to a newer kernel. Kernel 5.13 and higher might have patched a fix.
-    - Use a different Bluetooth stack. Xbox controllers work fine with Fluoride (the bluetooth stack from Android).
-      Sadly, it's hard to install on another Linux, and Bluez is the only stack easily provided on most Linux
-      distributions.
+  - Use a Windows 10 computer *on the same Bluetooth adapter* to pair with the controller. It must absolutely be on the
+    same Bluetooth adapter, i.e. the same computer (can be inside a virtual machine with Bluetooth passthrough) if it's
+    an internal Bluetooth adapter, or the same Bluetooth dongle. Then, you can get the pairing keys and install them
+    within your Linux Bluetooth system.
+    - After pairing the controller on Windows, refer to
+      [the steps on the ArchLinux wiki](https://wiki.archlinux.org/title/Bluetooth#Extracting_on_Windows) for
+      extracting the pairing keys from Windows.
+    - Reboot the computer and try connecting.
+    - If this fails, try removing the Xbox controller and re-pairing through the usual process.
+  - Update to a newer kernel. Kernel 5.13 and higher might have patched a fix.
+  - Use a different Bluetooth stack. Xbox controllers work fine with Fluoride (the bluetooth stack from Android).
+    Sadly, it's hard to install on another Linux, and Bluez is the only stack easily provided on most Linux
+    distributions.
 - If none of these options worked, or you can't try them, then the only solution is to plug the controller using a USB
   cord. As for now, it won't load the xpadneo driver, but the default controller driver. USB support may be added soon
   to xpadneo.
+
+
+### Gamepad Axes Have Phantom Input, Erratic Behavior, or Triggers Get Stuck
+
+If you observe some of these issues, this is usually a problem with deadzones:
+
+- Triggers get stuck when randomly pressing and depressing them
+- Camera or character drift when releasing an axis
+- Your hardware degrades and software deadzones become too small
+
+It depends on your situation and setup to decide what your preferred way of fixing is.
+
+xpadneo supports a high precision mode which you can activate via a module parameter. It defaults to off. It is called
+`disabled_deadzones`, and when you enable it, xpadneo won't allow the kernel to process any deadzone handling. This is
+useful if you run games that properly implement circular deadzones or need very high precision movement. Most Windows
+games running via Proton belong to this category. Sometimes, you still need to adjust the settings in game to balance
+precision and phantom inputs.
+
+If you stick with the default behavior, the kernel implement deadzones. But this is a very simple implementation and is
+based just on absolute axis values instead of center point distance (circular). If you want to or need to use bigger
+deadzones, you most likely want to use the deadzone implementation of Proton or games.
+
+This problem will also affect the triggers. One user reported that an emulator didn't properly work until the deadzones
+had been adjusted in the emulator, see: https://github.com/atar-axis/xpadneo/issues/474
+
+Finally, over time, most controllers will start to drift slightly. We cannot fix this in the driver because we should
+not increase deadzones to arbitrarily high values for all users. Use the game or kernel settings instead to increase
+the deadzone. Controllers that use contact-less sensors (hall effect, MR, AMR, or TMR sensors) are usually not
+affected.
 
 
 ### Gamepad Axes Are Swapped, Seemingly Unresponsive or Strange Behavior

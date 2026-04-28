@@ -1,5 +1,38 @@
-xpadneo-dkms (0.9.7+git20241224.8d20a23-0deepin1) unstable; urgency=medium
+xpadneo-dkms (0.10.1-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Michael Lloyd <michael@micl.dev>  Tue, 07 Apr 2026 21:22:13 +1000
+
+xpadneo-dkms (0.10-1) unstable; urgency=medium
 
   * New upstream release.
+  * Drop redundant DKMS POST_INSTALL/POST_REMOVE hooks (fixes piuparts).
+  * d/copyright: Update for upstream relicense of kernel module source
+    to GPL-2.0-only and add CC0-1.0 for AppStream metainfo.
+  * d/rules: Install upstream AppStream metainfo file.
+  * d/patches: Fix AppStream component ID to use reverse-DNS format.
+  * d/watch: Add Uversionmangle to handle upstream pre-release tags.
 
- -- xiangzelong <xiangzelong@deepin.org>  Thu, 23 Jan 2025 11:02:00 +0800
+ -- Michael Lloyd <michael@micl.dev>  Thu, 12 Mar 2026 14:43:02 +1100
+
+xpadneo-dkms (0.9.8-2) unstable; urgency=medium
+
+  * Migrate to gbp workflow.
+  * Update Vcs-* fields to point to Salsa.
+  * Remove unnecessary Rules-Requires-Root field.
+  * Move linux-headers-generic from Recommends to Depends.
+  * Update watch file to version 5.
+  * Add upstream metadata.
+  * Add autopkgtest for DKMS module verification.
+  * Add Salsa CI configuration.
+  * Use common.postinst instead of dkms add and autoinstaller.
+  * Ship upstream config dirs in DKMS source tree for post_install.
+
+ -- Michael Lloyd <michael@micl.dev>  Tue, 24 Feb 2026 12:27:08 +1100
+
+xpadneo-dkms (0.9.8-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #1125989)
+
+ -- Michael Lloyd <michael@micl.dev>  Tue, 20 Jan 2026 15:10:06 +1100

@@ -1,16 +1,11 @@
 #!/bin/sh
 
-#TODO Remove ERTM after kernel patch is deployed in the wild
+# FIXME(kakra): This file should be removed, the module rebuild should not
+# mangle files that are supposed to be handled by the package manager. But
+# for now, the ERTM fixup stays in place because both the installation and
+# the uninstallation remove a stray file for a work-around that is no longer
+# needed nor supported.
+
+# DKMS now defaults to kernel 5.12 minimum, remove ERTM override
 ERTM_OVERRIDE="/etc/modprobe.d/99-xpadneo-bluetooth.conf"
-
 [ -L "${ERTM_OVERRIDE}" ] || { echo "Uninstalling ERTM override..."; rm -f "${ERTM_OVERRIDE}"; }
-
-echo "Uninstalling modalias database..."
-rm -f /etc/modprobe.d/xpadneo.conf
-
-echo "Uninstalling udev rules..."
-rm -f /etc/udev/rules.d/70-xpadneo-disable-hidraw.rules
-rm -f /etc/udev/rules.d/60-xpadneo.rules
-
-echo "Reloading udev..."
-udevadm control --reload

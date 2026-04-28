@@ -4,9 +4,16 @@
 ccflags-y += -DVERSION=$(VERSION)
 obj-m += hid-xpadneo.o
 
-#FIXME(kakra) Work-around, cleanup after source code split
-hid-xpadneo-y += xpadneo.o
-$(obj)/xpadneo.c: $(src)/hid-xpadneo.c
-	cp $< $@
-
-hid-xpadneo-y += xpadneo/core.o xpadneo/consumer.o xpadneo/keyboard.o
+hid-xpadneo-y += \
+	xpadneo/consumer.o \
+	xpadneo/core.o \
+	xpadneo/debug.o \
+	xpadneo/device.o \
+	xpadneo/events.o \
+	xpadneo/keyboard.o \
+	xpadneo/mappings.o \
+	xpadneo/mouse.o \
+	xpadneo/power.o \
+	xpadneo/quirks.o \
+	xpadneo/rumble.o \
+	xpadneo/synthetic.o

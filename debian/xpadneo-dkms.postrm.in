@@ -1,0 +1,28 @@
+#!/bin/sh
+set -e
+
+PACKAGE_NAME=hid-xpadneo
+PACKAGE_VERSION=@VERSION@
+
+case "$1" in
+	purge)
+		rm -f /lib/modules/*/kernel/drivers/hid/${PACKAGE_NAME}.ko* 2>/dev/null || true
+		rm -f /lib/modules/*/extra/${PACKAGE_NAME}.ko* 2>/dev/null || true
+		rm -f /lib/modules/*/updates/dkms/${PACKAGE_NAME}.ko* 2>/dev/null || true
+		if command -v depmod > /dev/null; then
+			depmod -a 2>/dev/null || true
+		fi
+		;;
+
+	remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+		;;
+
+	*)
+		echo "postrm called with unknown argument \`$1'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

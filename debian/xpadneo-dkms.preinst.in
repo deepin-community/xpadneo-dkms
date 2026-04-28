@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e
+
+PACKAGE_NAME=hid-xpadneo
+PACKAGE_VERSION=@VERSION@
+
+case "$1" in
+	install|upgrade)
+		if command -v dkms > /dev/null; then
+			for old_version in $(dkms status -m ${PACKAGE_NAME} 2>/dev/null | cut -d',' -f2 | cut -d':' -f1 | tr -d ' ' | sort -u); do
+				if [ -n "$old_version" ] && [ "$old_version" != "${PACKAGE_VERSION}" ]; then
+					dkms remove -m ${PACKAGE_NAME} -v ${old_version} --all 2>/dev/null || true
+				fi
+			done
+
+			for old_src in /usr/src/${PACKAGE_NAME}-*; do
+				if [ -d "$old_src" ]; then
+					src_version=$(basename "$old_src" | sed "s/${PACKAGE_NAME}-//")
+					if [ "$src_version" != "${PACKAGE_VERSION}" ]; then
+						if ! dkms status -m ${PACKAGE_NAME} -v ${src_version} 2>/dev/null | grep -q "${src_version}"; then
+							rm -rf "$old_src" 2>/dev/null || true
+						fi
+					fi
+				fi
+			done
+		fi
+		;;
+
+	abort-upgrade)
+		;;
+
+	*)
+		echo "preinst called with unknown argument \`$1'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0
